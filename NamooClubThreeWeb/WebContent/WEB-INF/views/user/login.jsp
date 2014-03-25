@@ -67,20 +67,31 @@ body {
 </style>
 </head>
 <body>
-	<!-- header -->
-	<h2>나무 커뮤니티</h2>
-	<!-- form -->
-	<form action="./user/login.do" method="post">
-		<input type="text" name="loginId" class="form-control" id="inputEmail" placeholder="아이디"> 
-		<input type="password" name="loginPassword" class="form-control" id="inputPassword"	placeholder="비밀번호">
-		
-		<button class="btn btn-large btn-warning" type="submit">로그인</button>
-		<button class="btn btn-large btn-default" onclick="location.href='${ctx}/user/join.do'; return false;">회원가입</button>
-	</form>
+	<div class="container">
+		<!-- header -->
+		<div class="login-header">
+			<h2 class="form-signin-heading">나무 커뮤니티</h2>
+		</div>
 
-	<!-- footer -->
-	<div class="login-footer">
-		<p>© NamooSori 2014.</p>
+		<!-- form -->
+		<form class="form-signin" action="./user/login.do" method="post">
+			<input type="text" name="loginId" class="form-control"
+				id="inputEmail" placeholder="아이디"> <input type="password"
+				name="loginPassword" class="form-control" id="inputPassword"
+				placeholder="비밀번호"> <label class="checkbox"> <input
+				type="checkbox" value="remember-me"> 아이디 기억하기
+			</label>
+			<div class="row form-btn">
+			<button class="btn btn-large btn-warning" type="submit">로그인</button>
+			<button class="btn btn-large btn-default"
+				onclick="location.href='${ctx}/user/join.do'; return false;">회원가입</button>
+			</div>
+		</form>
+
+		<!-- footer -->
+		<div class="login-footer">
+			<p>© NamooSori 2014.</p>
+		</div>
 	</div>
 </body>
 </html>
