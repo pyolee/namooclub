@@ -6,8 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>나무커뮤니티</title>
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootswatch.min.css" rel="stylesheet">
+<link href="${ctx}/resources/css/bootstrap.css" rel="stylesheet">
+<link href="${ctx}/resources/css/bootswatch.min.css" rel="stylesheet">
 <style type="text/css">
 body {
 	padding-top: 100px;

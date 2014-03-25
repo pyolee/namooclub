@@ -7,6 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.namoo.ns1.service.facade.TownerService;
+import com.namoo.ns1.service.factory.NamooClubServiceFactory;
 @WebServlet("/user/login.do")
 public class LoginController extends HttpServlet{
 
@@ -23,6 +27,19 @@ public class LoginController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		//
+		TownerService townerService = NamooClubServiceFactory.getInstance().getTownerService();
+		
+		String loginId = req.getParameter("loginId");
+		String loginPassword = req.getParameter("loginPassword");
+		
+		HttpSession session = req.getSession();
+		
+		if(townerService.loginAsTowner(loginId, loginPassword)) {
+			session.setAttribute("userId", loginId);
+			resp.sendRedirect("community/main.xhtml");
+		} else if(!townerService.loginAsTowner(loginId, loginPassword)) {
+			throw new RuntimeException("로그인에 실패하였습니다.  다시 로그인 해주세요.");
+		}
 		
 	}
 	
