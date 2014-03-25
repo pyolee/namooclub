@@ -1,4 +1,4 @@
-package com.namoo.ns1.web.controller;
+package com.namoo.ns1.web.controller.community;
 
 import java.io.IOException;
 
@@ -8,27 +8,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-
-@WebServlet("/login.xhtml")
-public class LoginPageController extends HttpServlet{
-
-	private static final long serialVersionUID = -7397257043283977173L;
+@WebServlet("/community/open.xhtml")
+public class CommunityOpenPageController extends HttpServlet{
+	private static final long serialVersionUID = -852192481883357313L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		//
+		// 
 		doPost(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		//
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/login.jsp");
+		// 
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/community/open.jsp");
 		dispatcher.forward(req, resp);
 	}
+	
+
 }
-
-

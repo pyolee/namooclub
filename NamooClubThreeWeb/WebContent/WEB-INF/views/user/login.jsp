@@ -84,7 +84,7 @@ body {
 			<div class="row form-btn">
 			<button class="btn btn-large btn-warning" type="submit">로그인</button>
 			<button class="btn btn-large btn-default"
-				onclick="location.href='${ctx}/user/join.do'; return false;">회원가입</button>
+				onclick="location.href='${ctx}/join.xhtml'; return false;">회원가입</button>
 			</div>
 		</form>
 

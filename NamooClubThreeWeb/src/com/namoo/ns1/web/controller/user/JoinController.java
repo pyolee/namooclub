@@ -1,4 +1,4 @@
-package com.namoo.ns1.web.controller;
+package com.namoo.ns1.web.controller.user;
 
 import java.io.IOException;
 
@@ -39,7 +39,8 @@ public class JoinController extends HttpServlet{
 		
 		townerService.registTowner(joinName, joinEmail, joinPassword);
 		
-		resp.sendRedirect("login.xhtml");
+		resp.sendRedirect(req.getServletContext().getContextPath()+"/login.xhtml");
+
 	}
 
 }

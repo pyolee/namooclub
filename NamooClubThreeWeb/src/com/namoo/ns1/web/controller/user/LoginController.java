@@ -1,4 +1,4 @@
-package com.namoo.ns1.web.controller;
+package com.namoo.ns1.web.controller.user;
 
 import java.io.IOException;
 
@@ -35,8 +35,10 @@ public class LoginController extends HttpServlet{
 		HttpSession session = req.getSession();
 		
 		if(townerService.loginAsTowner(loginId, loginPassword)) {
+			
 			session.setAttribute("userId", loginId);
-			resp.sendRedirect("community/main.xhtml");
+			resp.sendRedirect(req.getServletContext().getContextPath()+"/community/main.xhtml");
+			
 		} else if(!townerService.loginAsTowner(loginId, loginPassword)) {
 			throw new RuntimeException("로그인에 실패하였습니다.  다시 로그인 해주세요.");
 		}
