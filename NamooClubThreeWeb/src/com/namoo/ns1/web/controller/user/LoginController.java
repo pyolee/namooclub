@@ -37,6 +37,7 @@ public class LoginController extends HttpServlet{
 		if(townerService.loginAsTowner(loginId, loginPassword)) {
 			
 			session.setAttribute("userId", loginId);
+			session.setAttribute("userName", townerService.findTowner(loginId).getName());
 			resp.sendRedirect(req.getServletContext().getContextPath()+"/community/main.xhtml");
 			
 		} else if(!townerService.loginAsTowner(loginId, loginPassword)) {

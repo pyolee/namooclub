@@ -2,9 +2,13 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>나무커뮤니티</title>
 <link href="${ctx}/resources/css/bootstrap.css" rel="stylesheet">
 <link href="${ctx}/resources/css/bootswatch.min.css" rel="stylesheet">
