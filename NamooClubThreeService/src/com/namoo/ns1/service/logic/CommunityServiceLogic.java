@@ -5,6 +5,7 @@ import java.util.List;
 import com.namoo.ns1.data.EntityManager;
 import com.namoo.ns1.service.facade.CommunityService;
 import com.namoo.ns1.service.logic.exception.NamooExceptionFactory;
+import com.namoo.ns1.service.util.SequenceGenerator;
 
 import dom.entity.Community;
 import dom.entity.CommunityMember;
@@ -23,8 +24,9 @@ public class CommunityServiceLogic implements CommunityService {
 	@Deprecated
 	public void registCommunity(String communityName, String adminName, String email, String password){
 		//
+		String id =SequenceGenerator.getNextId(Community.class);
 		SocialPerson admin = createPerson(adminName, email, password);
-		Community community = new Community(communityName, "", admin);
+		Community community = new Community(communityName, "", admin, id);
 		
 		em.store(community);
 	}
@@ -39,9 +41,9 @@ public class CommunityServiceLogic implements CommunityService {
 		if (em.find(SocialPerson.class, email) != null) {
 			throw NamooExceptionFactory.createRuntime("해당 주민이 이미 존재합니다.");
 		}
-
+		String id =SequenceGenerator.getNextId(Community.class);
 		SocialPerson admin = createPerson(adminName, email, password);
-		Community community = new Community(communityName, description, admin);
+		Community community = new Community(communityName, description, admin, id);
 		
 		em.store(community);
 	}
@@ -58,7 +60,9 @@ public class CommunityServiceLogic implements CommunityService {
 			throw NamooExceptionFactory.createRuntime("존재하지 않는 주민입니다.");
 		}
 		
-		Community community = new Community(communityName, description, towner);
+		String id =SequenceGenerator.getNextId(Community.class);
+		
+		Community community = new Community(communityName, description, towner, id);
 		em.store(community);
 	}
 
@@ -71,15 +75,15 @@ public class CommunityServiceLogic implements CommunityService {
 	}
 
 	@Override
-	public Community findCommunity(String communityName){
+	public Community findCommunity(String communityId){
 		//
-		return em.find(Community.class, communityName);
+		return em.find(Community.class, communityId);
 	}
 
 	@Override
-	public void joinAsMember(String communityName, String name, String email, String password){
+	public void joinAsMember(String communityId, String name, String email, String password){
 		//
-		Community community = em.find(Community.class, communityName);
+		Community community = em.find(Community.class, communityId);
 		
 		if (community == null) {
 			throw NamooExceptionFactory.createRuntime("커뮤니티가 존재하지 않습니다.");
@@ -96,9 +100,9 @@ public class CommunityServiceLogic implements CommunityService {
 	}
 
 	@Override
-	public void joinAsMember(String communityName, String email) {
+	public void joinAsMember(String communityId, String email) {
 		// 
-		Community community = em.find(Community.class, communityName);
+		Community community = em.find(Community.class, communityId);
 		
 		if (community == null) {
 			throw NamooExceptionFactory.createRuntime("커뮤니티가 존재하지 않습니다.");
@@ -196,13 +200,16 @@ public class CommunityServiceLogic implements CommunityService {
 	}
 
 	@Override
-	public void withdrawalCommunity(String communityName, String email) {
+	public void withdrawalCommunity(String communityId, String email) {
 		//
-		Community community = em.find(Community.class, communityName);
+		Community community = em.find(Community.class, communityId);
 		if (community == null) {
 			throw NamooExceptionFactory.createRuntime("커뮤니티가 존재하지 않습니다.");
 		}
 		
+		if(email.equals(community.getManager().getEmail())) {
+			throw new RuntimeException("관리자는 탈퇴할 수 없습니다.");
+		}
 		community.removeMember(email);
 		em.store(community);
 	}

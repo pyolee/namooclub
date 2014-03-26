@@ -50,7 +50,7 @@ public interface CommunityService {
 	 * 
 	 * @param communityName
 	 */
-	public Community findCommunity(String communityName);
+	public Community findCommunity(String communityId);
 
 	/**
 	 * [주민으로 등록되지 않은 경우] 커뮤니티 가입
@@ -78,7 +78,7 @@ public interface CommunityService {
 	 * 
 	 * @throws NamooRuntimeException
 	 */
-	public void joinAsMember(String communityName, String email);
+	public void joinAsMember(String communityId, String email);
 
 	/**
 	 * @return
@@ -137,6 +137,6 @@ public interface CommunityService {
 	 * @param communityName
 	 * @param email
 	 */
-	public void withdrawalCommunity(String communityName, String email);
+	public void withdrawalCommunity(String communityId, String email);
 
 }

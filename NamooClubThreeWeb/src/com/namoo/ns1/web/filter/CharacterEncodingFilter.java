@@ -41,7 +41,7 @@ public class CharacterEncodingFilter implements Filter{
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		//
-		System.out.println("[init]");
+		System.out.println("---------------------> [init]");
 		this.encoding = config.getInitParameter("encoding");
 	}
 

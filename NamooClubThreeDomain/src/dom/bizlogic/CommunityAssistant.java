@@ -1,4 +1,5 @@
 package dom.bizlogic;
+
 import dom.entity.Community;
 import dom.entity.SocialPerson;
 
@@ -20,10 +21,11 @@ public class CommunityAssistant {
 	 */
 	public void createCommunity(String communityName, String adminName, String email, String password){
 		//
+
 		SocialPerson admin = createPerson(adminName, email, password);
-		Community community = new Community(communityName, "", admin);
+		//Community community = new Community(communityName, "", admin);
 		
-		communityRepo.addCommunity(community);
+		//communityRepo.addCommunity(community);
 	}
 
 	/**

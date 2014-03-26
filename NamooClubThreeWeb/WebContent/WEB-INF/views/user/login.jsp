@@ -10,8 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>나무커뮤니티</title>
-<link href="${ctx}/resources/css/bootstrap.css" rel="stylesheet">
-<link href="${ctx}/resources/css/bootswatch.min.css" rel="stylesheet">
+<%@ include file="/WEB-INF/views/common/common.jsp" %>
 <style type="text/css">
 body {
 	padding-top: 100px;
@@ -78,7 +77,7 @@ body {
 		</div>
 
 		<!-- form -->
-		<form class="form-signin" action="./user/login.do" method="post">
+		<form class="form-signin" action="${ctx}/user/login.do" method="post">
 			<input type="text" name="loginId" class="form-control"
 				id="inputEmail" placeholder="아이디"> <input type="password"
 				name="loginPassword" class="form-control" id="inputPassword"
@@ -88,7 +87,7 @@ body {
 			<div class="row form-btn">
 			<button class="btn btn-large btn-warning" type="submit">로그인</button>
 			<button class="btn btn-large btn-default"
-				onclick="location.href='${ctx}/join.xhtml'; return false;">회원가입</button>
+				onclick="location.href='${ctx}/view/user/join.xhtml'; return false;">회원가입</button>
 			</div>
 		</form>
 
@@ -97,5 +96,6 @@ body {
 			<p>© NamooSori 2014.</p>
 		</div>
 	</div>
+
 </body>
 </html>

@@ -11,7 +11,9 @@ public class Community implements Identifiable {
 	
 	private String name;
 	private String description;
+	private String id;
 	
+
 	private CommunityManager manager;
 	private List<CommunityMember> members;
 
@@ -23,11 +25,12 @@ public class Community implements Identifiable {
 	 * @param communityName
 	 * @param admin
 	 */
-	public Community(String communityName, String description, SocialPerson admin){
+	public Community(String communityName, String description, SocialPerson admin, String id){
 		//
 		this.name = communityName;
 		this.description = description;
 		this.members = new ArrayList<CommunityMember>();
+		this.id = id;
 		
 		setManager(admin);
 		addMember(admin);
@@ -36,6 +39,9 @@ public class Community implements Identifiable {
 	//--------------------------------------------------------------------------
 	// getter/setter
 	
+	public String getId() {
+		return id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -96,7 +102,7 @@ public class Community implements Identifiable {
 	@Override
 	public String getOId() {
 		// 
-		return name;
+		return id;
 	}
 
 	public void removeMember(String email) {

@@ -28,7 +28,7 @@ public class LogoutController extends HttpServlet{
 		HttpSession session = req.getSession();
 		
 		session.removeAttribute("userId");
-		resp.sendRedirect(req.getServletContext().getContextPath()+"/login.xhtml");
+		resp.sendRedirect(req.getServletContext().getContextPath()+"/view/user/login.xhtml");
 	}
 	
 	

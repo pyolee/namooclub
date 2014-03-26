@@ -14,9 +14,6 @@ import com.namoo.ns1.service.factory.NamooClubServiceFactory;
 @WebServlet("/user/join.do")
 public class JoinController extends HttpServlet{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -257322423129072756L;
 
 	@Override
@@ -39,7 +36,7 @@ public class JoinController extends HttpServlet{
 		
 		townerService.registTowner(joinName, joinEmail, joinPassword);
 		
-		resp.sendRedirect(req.getServletContext().getContextPath()+"/login.xhtml");
+		resp.sendRedirect(req.getServletContext().getContextPath()+"/view/user/login.xhtml");
 
 	}
 
