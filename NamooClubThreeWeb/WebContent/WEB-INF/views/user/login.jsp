@@ -78,11 +78,10 @@ body {
 
 		<!-- form -->
 		<form class="form-signin" action="${ctx}/user/login.do" method="post">
-			<input type="text" name="loginId" class="form-control"
-				id="inputEmail" placeholder="아이디"> <input type="password"
-				name="loginPassword" class="form-control" id="inputPassword"
-				placeholder="비밀번호"> <label class="checkbox"> <input
-				type="checkbox" value="remember-me"> 아이디 기억하기
+			<input type="text" name="loginId" class="form-control"	id="inputEmail" placeholder="아이디" required> 
+			<input type="password"	name="loginPassword" class="form-control" id="inputPassword"placeholder="비밀번호" required> 
+			<label class="checkbox"> 
+			<input type="checkbox" value="remember-me"> 아이디 기억하기
 			</label>
 			<div class="row form-btn">
 			<button class="btn btn-large btn-warning" type="submit">로그인</button>

@@ -7,6 +7,8 @@ import com.namoo.ns1.service.facade.CommunityService;
 import com.namoo.ns1.service.logic.exception.NamooExceptionFactory;
 import com.namoo.ns1.service.util.SequenceGenerator;
 
+import dom.entity.Club;
+import dom.entity.ClubMember;
 import dom.entity.Community;
 import dom.entity.CommunityMember;
 import dom.entity.SocialPerson;
@@ -43,6 +45,7 @@ public class CommunityServiceLogic implements CommunityService {
 		}
 		String id =SequenceGenerator.getNextId(Community.class);
 		SocialPerson admin = createPerson(adminName, email, password);
+				
 		Community community = new Community(communityName, description, admin, id);
 		
 		em.store(community);
@@ -210,6 +213,21 @@ public class CommunityServiceLogic implements CommunityService {
 		if(email.equals(community.getManager().getEmail())) {
 			throw new RuntimeException("관리자는 탈퇴할 수 없습니다.");
 		}
+		
+		List<Club> clubList = community.getClubs();
+		for(Club club : clubList) {
+			if(email.equals(club.getManager().getEmail())) {
+				throw new RuntimeException("클럽 관리자는 클럽을 폐쇄한 후 탈퇴하세요.");
+			}
+			
+			List<ClubMember> members = club.getMembers();
+			for(ClubMember member : members) {
+				if(email.equals(member.getEmail())) {
+					throw new RuntimeException("클럽을 탈퇴한 후 커뮤니티를 탈퇴하세요.");
+				}
+			}
+		}
+		
 		community.removeMember(email);
 		em.store(community);
 	}

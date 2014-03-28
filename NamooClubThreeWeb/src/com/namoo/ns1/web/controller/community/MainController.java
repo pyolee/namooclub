@@ -2,47 +2,67 @@ package com.namoo.ns1.web.controller.community;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.namoo.ns1.service.facade.CommunityService;
 import com.namoo.ns1.service.factory.NamooClubServiceFactory;
+import com.namoo.ns1.web.controller.DefaultController;
+import com.namoo.ns1.web.controller.LogionRequired;
+import com.namoo.ns1.web.controller.community.dto.CommunityDto;
 
 import dom.entity.Community;
 @WebServlet("/community/main.xhtml")
-public class MainController extends HttpServlet{
+@LogionRequired
+public class MainController extends DefaultController{
 	private static final long serialVersionUID = 6386265767321202117L;
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		// 
-		doPost(req, resp);
-	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+	protected void process(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// 
 		HttpSession session = req.getSession();
+		String userId = (String) session.getAttribute("userId");
 		
 		CommunityService communityService = NamooClubServiceFactory.getInstance().getCommunityService();
 
 		List<Community> communities = communityService.findAllCommunities();
-		List<Community> myCommunities = communityService.findBelongCommunities((String) session.getAttribute("userId"));
+		List<Community> myCommunities = communityService.findBelongCommunities(userId);
 		
-		// filtering.
+		//내가 가입한 커뮤니티의 Dto 생성 로직
+		List<CommunityDto> myCommunityDto = new ArrayList<>(); 
+		
+		for(Community community : myCommunities) {
+			
+			
+			CommunityDto dto = new CommunityDto(community, userId);
+			
+			myCommunityDto.add(dto);
+		}
+		
+		// 미가입 커뮤니티 filtering.
 		filterCommunities(communities, myCommunities);
 		
-		req.setAttribute("myCommunities", myCommunities);
-		req.setAttribute("communities", communities);
+		//미가입한 커뮤니티의 Dto 생성 로직
+		List<CommunityDto> communityDto = new ArrayList<>(); 
+		
+		for(Community community : communities) {
+			CommunityDto dto = new CommunityDto(community, userId);
+			
+			communityDto.add(dto);
+		}
+		
+		req.setAttribute("myCommunityDto", myCommunityDto);
+		req.setAttribute("communityDto", communityDto);
+	
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/community/main.jsp");
 		dispatcher.forward(req, resp);
@@ -62,7 +82,6 @@ public class MainController extends HttpServlet{
 		if (!removed.isEmpty()) {
 			communities.removeAll(removed);
 		}
-		
 	}
 	
 
